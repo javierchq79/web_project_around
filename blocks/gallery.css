@@ -1,0 +1,67 @@
+/* MAIN GALLERY */
+
+.main__gallery-list,
+.main__card,
+.main__image {
+  margin: 0;
+  border: none;
+}
+
+
+
+.main__gallery-list {
+  margin-top: 25px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+
+
+/* Tarjetas */
+.main__card {
+  width: 100%; /* esto permite que se adapten al tamaño de la columna */
+  height: auto;
+  margin: 5px 5px 5px 5px ;
+  border-radius: 12px;
+  background-color:white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Imagen se adapta al ancho y mantiene proporción */
+.main__image {
+  width: 100%;
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  height: 85%; /* asigna un % fijo del alto total para imagen */
+}
+
+.main__card-footer {
+  display: flex;
+  justify-content: space-between;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  background-color: #fff;
+  padding: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.main__title {
+  padding: 5px 10px;
+  margin: 0;
+  font-size: 2vh;
+  color: #000;
+}
+
+.main__like-button {
+  padding: 5px 10px;
+  font-size: large;
+  background-color: #fff;
+  border: none;
+}

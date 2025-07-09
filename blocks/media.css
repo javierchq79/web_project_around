@@ -1,0 +1,53 @@
+/* Mobile: 1 columna */
+@media (max-width: 480px) {
+  .page {
+  width: auto;
+  margin: auto;
+  padding-left: 10vw;
+  padding-right: 10vw;
+  min-height: 100vh; /* opcional, para que siempre tome toda la pantalla */
+}
+
+.main__profile {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  text-align: center;
+  align-items: center;
+  gap: 16px;
+  padding: 1vh 0;
+}
+
+.main__avatar {
+  display: flex;
+  
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin: 0 auto; /* Centra horizontalmente */
+}
+
+  .main__gallery-list {
+  margin-top: 25px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: auto;
+  gap: 8px;
+}
+
+.main__add-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90px;           /* Tamaño sugerido, puedes ajustar */
+  height: 40px;
+  font-size: 24px;       /* Tamaño del "+" */
+  cursor: pointer;       /* Cambia el cursor al pasar */
+  margin: 0 auto; /* Centra horizontalmente */
+}
+
+
+}

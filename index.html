@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Alrededor de México</title>
+
+    <meta name="author" content="Javier Chavez">
+    <meta name="description" content="Explora México a través de su cultura, su gente y sus paisajes.">
+    <meta name="keywords" content="México, cultura mexicana, turismo en México, tradiciones, paisajes, viajes, TripleTen">
+
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" href="favIcon.ico" type="image/x-icon">
+  </head>
+
+  <body>
+    <!-- POPUP: Editar perfil -->
+    <div class="popup popup_type_edit-profile">
+      <div class="popup__container">
+        <button class="popup__close-button" type="button">&times;</button>
+        <form class="popup__form" name="edit-profile" novalidate>
+          <h3 class="popup__title">Editar perfil</h3>
+          <input
+            type="text"
+            name="name"
+            class="popup__input popup__input_type_name"
+            placeholder="Nombre"
+            required
+            minlength="2"
+            maxlength="40"
+          >
+          <input
+            type="text"
+            name="about"
+            class="popup__input popup__input_type_description"
+            placeholder="Acerca de mí"
+            required
+            minlength="2"
+            maxlength="200"
+          >
+          <button class="popup__save-button" type="submit">Guardar</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Page -->
+
+    <div class="page">
+      <!-- Header -->
+      <header class="header">
+        <div class="header__logo">
+          Alrededor <sup class="header__sup"> de México</sup>
+        </div>
+      </header>
+
+      <!-- Main -->
+
+      <main class="main">
+        <!-- Perfil -->
+        <section class="main__profile">
+          <div class="main__avatar">
+            <img
+              src="images/jacques-avatar.jpg"
+              alt="Foto de perfil de Jacques Cousteau"
+            >
+          </div>
+
+          <div class="main__info">
+            <div class="main__name-wrapper">
+              <h1 class="main__name">Jacques Cousteau</h1>
+              <button class="main__edit-button" aria-label="Editar perfil">
+                <img src="images/Colebemis-Feather-Edit-3.svg" alt="">
+              </button>
+            </div>
+            <p class="main__description">Explorador</p>
+          </div>
+
+          <button class="main__add-button" aria-label="Añadir">+</button>
+        </section>
+
+        <!-- Galería -->
+        <section class="main__gallery">
+          <div class="main__gallery-list">
+            <div class="main__card">
+              <img
+                class="main__image"
+                src="images/alexis-tostado-3TBuSLluZ8w-unsplash.jpg"
+                alt="Vista aérea de la CDMX. Foto de Alexis Tostado en Unsplash"
+              >
+              <div class="main__card-footer">
+                <h2 class="main__title">Ciudad de México</h2>
+                <button class="main__like-button">&#x2661;</button>
+              </div>
+            </div>
+
+            <div class="main__card">
+              <img
+                class="main__image"
+                src="images/allan-francis-vHa8lBm_kyc-unsplash.jpg"
+                alt="Iglesia de color amarillo con reloj en la fachada. Foto de Allan Francis en Unsplash"
+              >
+              <div class="main__card-footer">
+                <h2 class="main__title">Puebla</h2>
+                <button class="main__like-button">&#x2661;</button>
+              </div>
+            </div>
+
+            <div class="main__card">
+              <img
+                class="main__image"
+                src="images/e-mens-hpC8h942zhk-unsplash.jpg"
+                alt="Piramide de Chichén Itzá. Foto de E Mens en Unsplash"
+              >
+              <div class="main__card-footer">
+                <h2 class="main__title">Yucatán</h2>
+                <button class="main__like-button">&#x2661;</button>
+              </div>
+            </div>
+
+            <div class="main__card">
+              <img
+                class="main__image"
+                src="images/roman-lopez-SSrjNirM8CU-unsplash.jpg"
+                alt="Personas caminando frente a la catedral de Guadalajara bajo cielo blanco. Foto de Roman Lopez en Unsplash"
+              >
+              <div class="main__card-footer">
+                <h2 class="main__title">Jalisco</h2>
+                <button class="main__like-button">&#x2661;</button>
+              </div>
+            </div>
+
+            <div class="main__card">
+              <img
+                class="main__image"
+                src="images/samuel-garcia-HUA6fgcYK5Y-unsplash.jpg"
+                alt="Calle empedrada en el centro de Oaxaca bajo cielo azul. Foto de Samuel García en Unsplash"
+              >
+              <div class="main__card-footer">
+                <h2 class="main__title">Oaxaca</h2>
+                <button class="main__like-button">&#x2661;</button>
+              </div>
+            </div>
+
+            <div class="main__card">
+              <img
+                class="main__image"
+                src="images/t-bortolus-jUXDFW5VbhQ-unsplash.jpg"
+                alt="Ventana metálica negra sobre muro naranja. Foto de T Bortolus en Unsplash"
+              >
+              <div class="main__card-footer">
+                <h2 class="main__title">Nayarit</h2>
+                <button class="main__like-button">&#x2661;</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p class="footer__copyright">&copy;2025 Alrededor de México</p>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
