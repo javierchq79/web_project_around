@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Alrededor de México</title>
 
-    <meta name="author" content="Javier Chavez">
-    <meta name="description" content="Explora México a través de su cultura, su gente y sus paisajes.">
-    <meta name="keywords" content="México, cultura mexicana, turismo en México, tradiciones, paisajes, viajes, TripleTen">
+    <meta name="author" content="Javier Chavez" />
+    <meta
+      name="description"
+      content="Explora México a través de su cultura, su gente y sus paisajes."
+    />
+    <meta
+      name="keywords"
+      content="México, cultura mexicana, turismo en México, tradiciones, paisajes, viajes, TripleTen"
+    />
 
-    <link rel="stylesheet" href="pages/index.css">
-    <link rel="icon" href="favIcon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="pages/index.css" />
+    <link rel="icon" href="favIcon.ico" type="image/x-icon" />
   </head>
 
   <body>
@@ -30,7 +36,7 @@
             required
             minlength="2"
             maxlength="40"
-          >
+          />
           <input
             type="text"
             name="about"
@@ -39,11 +45,48 @@
             required
             minlength="2"
             maxlength="200"
-          >
+          />
           <button class="popup__save-button" type="submit">Guardar</button>
         </form>
       </div>
     </div>
+
+    <!-- POPUP: Nueva card -->
+    <div class="popup popup_type_add-card">
+      <div class="popup__container">
+        <button type="button" class="popup__close">X</button>
+        <h3 class="popup__title">Nuevo lugar</h3>
+        <form class="popup__form" name="add-card">
+          <input
+            type="text"
+            name="name"
+            placeholder="Título"
+            class="popup__input popup__input_type_title"
+            required
+            minlength="2"
+            maxlength="30"
+          />
+          <input
+            type="url"
+            name="link"
+            placeholder="Enlace a la imagen"
+            class="popup__input popup__input_type_link"
+            required
+          />
+          <button type="submit" class="popup__submit">Crear</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- POPUP: Imagen en grande -->
+    <div class="popup popup_type_image">
+    <button class="popup__close-button popup__close-button_outside">&times;</button>
+    <div class="popup__content popup__content_image">
+    <img class="popup__image" src="" alt="" />
+    <p class="popup__caption"></p>
+    </div>
+    </div>
+
 
     <!-- Page -->
 
@@ -64,14 +107,14 @@
             <img
               src="images/jacques-avatar.jpg"
               alt="Foto de perfil de Jacques Cousteau"
-            >
+            />
           </div>
 
           <div class="main__info">
             <div class="main__name-wrapper">
               <h1 class="main__name">Jacques Cousteau</h1>
               <button class="main__edit-button" aria-label="Editar perfil">
-                <img src="images/Colebemis-Feather-Edit-3.svg" alt="">
+                <img src="images/Colebemis-Feather-Edit-3.svg" alt="" />
               </button>
             </div>
             <p class="main__description">Explorador</p>
@@ -83,77 +126,7 @@
         <!-- Galería -->
         <section class="main__gallery">
           <div class="main__gallery-list">
-            <div class="main__card">
-              <img
-                class="main__image"
-                src="images/alexis-tostado-3TBuSLluZ8w-unsplash.jpg"
-                alt="Vista aérea de la CDMX. Foto de Alexis Tostado en Unsplash"
-              >
-              <div class="main__card-footer">
-                <h2 class="main__title">Ciudad de México</h2>
-                <button class="main__like-button">&#x2661;</button>
-              </div>
-            </div>
-
-            <div class="main__card">
-              <img
-                class="main__image"
-                src="images/allan-francis-vHa8lBm_kyc-unsplash.jpg"
-                alt="Iglesia de color amarillo con reloj en la fachada. Foto de Allan Francis en Unsplash"
-              >
-              <div class="main__card-footer">
-                <h2 class="main__title">Puebla</h2>
-                <button class="main__like-button">&#x2661;</button>
-              </div>
-            </div>
-
-            <div class="main__card">
-              <img
-                class="main__image"
-                src="images/e-mens-hpC8h942zhk-unsplash.jpg"
-                alt="Piramide de Chichén Itzá. Foto de E Mens en Unsplash"
-              >
-              <div class="main__card-footer">
-                <h2 class="main__title">Yucatán</h2>
-                <button class="main__like-button">&#x2661;</button>
-              </div>
-            </div>
-
-            <div class="main__card">
-              <img
-                class="main__image"
-                src="images/roman-lopez-SSrjNirM8CU-unsplash.jpg"
-                alt="Personas caminando frente a la catedral de Guadalajara bajo cielo blanco. Foto de Roman Lopez en Unsplash"
-              >
-              <div class="main__card-footer">
-                <h2 class="main__title">Jalisco</h2>
-                <button class="main__like-button">&#x2661;</button>
-              </div>
-            </div>
-
-            <div class="main__card">
-              <img
-                class="main__image"
-                src="images/samuel-garcia-HUA6fgcYK5Y-unsplash.jpg"
-                alt="Calle empedrada en el centro de Oaxaca bajo cielo azul. Foto de Samuel García en Unsplash"
-              >
-              <div class="main__card-footer">
-                <h2 class="main__title">Oaxaca</h2>
-                <button class="main__like-button">&#x2661;</button>
-              </div>
-            </div>
-
-            <div class="main__card">
-              <img
-                class="main__image"
-                src="images/t-bortolus-jUXDFW5VbhQ-unsplash.jpg"
-                alt="Ventana metálica negra sobre muro naranja. Foto de T Bortolus en Unsplash"
-              >
-              <div class="main__card-footer">
-                <h2 class="main__title">Nayarit</h2>
-                <button class="main__like-button">&#x2661;</button>
-              </div>
-            </div>
+            
           </div>
         </section>
       </main>
@@ -163,6 +136,28 @@
       </footer>
     </div>
 
+<!-- Template tarjetas -->
+<template id="card-template">
+  <article class="main__card">
+    <button class="main__delete-button" aria-label="Eliminar">
+      <svg xmlns="http://www.w3.org/2000/svg" class="main__delete-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 6h18M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2m2 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14z" />
+      </svg>
+    </button>
+    <img src="" alt="" class="main__image" />
+    <div class="main__card-footer">
+      <h2 class="main__title"></h2>
+      <button class="main__like-button" aria-label="Me gusta">
+        <svg class="main__like-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.8 4.6c-1.4-1.4-3.6-1.4-5 0l-.8.8-.8-.8c-1.4-1.4-3.6-1.4-5 0s-1.4 3.6 0 5l5.8 5.8 5.8-5.8c1.4-1.4 1.4-3.6 0-5z"/>
+        </svg>
+      </button>
+    </div>
+  </article>
+</template>
+
+
     <script src="scripts/index.js"></script>
+    
   </body>
 </html>
