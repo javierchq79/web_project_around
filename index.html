@@ -22,61 +22,73 @@
   </head>
 
   <body>
-    <!-- POPUP: Editar perfil -->
-    <div class="popup popup_type_edit-profile">
-      <div class="popup__container">
-        <button class="popup__close-button" type="button">&times;</button>
-        <form class="popup__form" name="edit-profile" novalidate>
-          <h3 class="popup__title">Editar perfil</h3>
-          <input
-            type="text"
-            name="name"
-            class="popup__input popup__input_type_name"
-            placeholder="Nombre"
-            required
-            minlength="2"
-            maxlength="40"
-          />
-          <input
-            type="text"
-            name="about"
-            class="popup__input popup__input_type_description"
-            placeholder="Acerca de mí"
-            required
-            minlength="2"
-            maxlength="200"
-          />
-          <button class="popup__save-button" type="submit">Guardar</button>
-        </form>
-      </div>
-    </div>
+<!-- POPUP: Editar perfil -->
+<div class="popup popup_type_edit-profile">
+  <div class="popup__container">
+    <button class="popup__close-button" type="button">&times;</button>
+    <form class="popup__form" name="edit-profile" novalidate>
+      <h3 class="popup__title">Editar perfil</h3>
 
-    <!-- POPUP: Nueva card -->
-    <div class="popup popup_type_add-card">
-      <div class="popup__container">
-        <button type="button" class="popup__close">X</button>
-        <h3 class="popup__title">Nuevo lugar</h3>
-        <form class="popup__form" name="add-card">
-          <input
-            type="text"
-            name="name"
-            placeholder="Título"
-            class="popup__input popup__input_type_title"
-            required
-            minlength="2"
-            maxlength="30"
-          />
-          <input
-            type="url"
-            name="link"
-            placeholder="Enlace a la imagen"
-            class="popup__input popup__input_type_link"
-            required
-          />
-          <button type="submit" class="popup__submit">Crear</button>
-        </form>
-      </div>
-    </div>
+      <input
+        type="text"
+        name="name"
+        class="popup__input popup__input_type_name"
+        placeholder="Nombre"
+        required
+        minlength="2"
+        maxlength="40"
+      />
+      <span class="popup__error" id="name-error"></span>
+
+      <input
+        type="text"
+        name="about"
+        class="popup__input popup__input_type_description"
+        placeholder="Acerca de mí"
+        required
+        minlength="2"
+        maxlength="200"
+      />
+      <span class="popup__error" id="about-error"></span>
+
+      <button class="popup__save-button" type="submit">Guardar</button>
+    </form>
+  </div>
+</div>
+
+<!-- POPUP: Nueva card -->
+<div class="popup popup_type_add-card">
+  <div class="popup__container">
+    <button class="popup__close-button" type="button">&times;</button>
+    <h3 class="popup__title">Nuevo lugar</h3>
+    <form class="popup__form" name="add-card" novalidate>
+      <input
+        type="text"
+        name="title"
+        placeholder="Título"
+        class="popup__input popup__input_type_title"
+        required
+        minlength="2"
+        maxlength="30"
+      />
+      <span class="popup__error" id="title-error"></span>
+
+      <input
+        type="url"
+        name="link"
+        placeholder="Enlace a la imagen"
+        class="popup__input popup__input_type_link"
+        required
+      />
+      <span class="popup__error" id="link-error"></span>
+
+      <button type="submit" class="popup__save-button popup__save-button_disabled" disabled>Crear</button>
+    </form>
+  </div>
+</div>
+
+
+
 
     <!-- POPUP: Imagen en grande -->
     <div class="popup popup_type_image">
@@ -157,7 +169,8 @@
 </template>
 
 
-    <script src="scripts/index.js"></script>
+    <script type="module" src="scripts/index.js"></script>
+
     
   </body>
 </html>

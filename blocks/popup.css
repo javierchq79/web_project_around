@@ -1,4 +1,4 @@
-/* Fondo negro semitransparente, oculto por defecto */
+/* === Popup base === */
 .popup {
   display: none; /* Oculto por defecto */
   position: fixed;
@@ -6,18 +6,17 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  background-color: rgba(0, 0, 0, 0.5);
   justify-content: center;
   align-items: center;
   z-index: 1000;
 }
 
-/* Mostrar popup cuando se agrega esta clase */
 .popup_opened {
   display: flex;
 }
 
-/* Contenedor blanco del formulario */
+/* === Contenedor del formulario === */
 .popup__container {
   background-color: white;
   border-radius: 10px;
@@ -28,8 +27,9 @@
   position: relative;
 }
 
-/* Botón de cerrar (×) */
-.popup__close-button {
+/* === Botón de cerrar (X) === */
+.popup__close-button,
+.popup__close {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -39,7 +39,7 @@
   cursor: pointer;
 }
 
-/* Título */
+/* === Título del formulario === */
 .popup__title {
   margin: 0 0 20px;
   font-size: 20px;
@@ -47,19 +47,34 @@
   color: black;
 }
 
-/* Campos de entrada */
+/* === Campos de entrada === */
 .popup__input {
   display: block;
   width: 100%;
-  margin-bottom: 15px;
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 5px; /* espacio con el mensaje de error */
 }
 
-/* Botón de guardar */
-.popup__save-button {
+.popup__input_type_error {
+  border: 1px solid red;
+}
+
+/* === Mensajes de error === */
+.popup__error {
+  font-size: 12px;
+  color: red;
+  margin-top: 4px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+/* === Botón de acción: Guardar / Crear === */
+.popup__save-button,
+.popup__submit {
   display: block;
   width: 100%;
   padding: 10px;
@@ -69,8 +84,19 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
-.popup__save-button:hover {
-  background-color:black;
+/* Hover activo */
+.popup__save-button:hover:not(:disabled),
+.popup__submit:hover:not(:disabled) {
+  background-color: #333;
+}
+
+/* Estado deshabilitado */
+.popup__save-button_disabled,
+.popup__submit:disabled {
+  background-color: #e0e0e0;
+  color: #888;
+  cursor: not-allowed;
 }

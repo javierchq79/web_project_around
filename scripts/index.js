@@ -1,3 +1,5 @@
+import { enableValidation } from './validate.js';
+
 // POP UP perfil
 const popup = document.querySelector('.popup_type_edit-profile');
 const openButton = document.querySelector('.main__edit-button');
@@ -15,6 +17,7 @@ function openPopup() {
   descriptionInput.value = mainDescription.textContent;
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', handleEscClose);
+  // Aquí si quieres, puedes resetear validación llamando a función externa (opcional)
 }
 
 function closePopup() {
@@ -77,7 +80,6 @@ function removeCard(evt) {
   }, { once: true });
 }
 
-// Función para abrir la imagen en popup
 function openImagePopup(src, alt) {
   popupImage.src = src;
   popupImage.alt = alt;
@@ -97,7 +99,6 @@ function handleImageEscClose(evt) {
   }
 }
 
-// Renderiza tarjeta
 function renderCard(cardData) {
   const cardElement = cardTemplate.querySelector('.main__card').cloneNode(true);
   const imageElement = cardElement.querySelector('.main__image');
@@ -111,7 +112,6 @@ function renderCard(cardData) {
   likeButton.addEventListener('click', toggleLike);
   deleteButton.addEventListener('click', removeCard);
 
-  // Abrir popup de imagen al hacer clic en la imagen
   imageElement.addEventListener('click', () => {
     openImagePopup(cardData.link, cardData.name);
   });
@@ -119,13 +119,12 @@ function renderCard(cardData) {
   cardsContainer.prepend(cardElement);
 }
 
-// Tarjetas iniciales
 initialCards.forEach(renderCard);
 
 // AÑADIR TARJETA
 const addCardPopup = document.querySelector('.popup_type_add-card');
 const addCardButton = document.querySelector('.main__add-button');
-const addCardCloseButton = addCardPopup.querySelector('.popup__close');
+const addCardCloseButton = addCardPopup.querySelector('.popup__close-button');
 const addCardForm = addCardPopup.querySelector('.popup__form');
 const cardTitleInput = addCardForm.querySelector('.popup__input_type_title');
 const cardLinkInput = addCardForm.querySelector('.popup__input_type_link');
@@ -139,11 +138,14 @@ function handleEscCloseForAdd(evt) {
 function openAddCardPopup() {
   addCardPopup.classList.add('popup_opened');
   document.addEventListener('keydown', handleEscCloseForAdd);
+  // Aquí puedes resetear validación si quieres (opcional)
 }
 
 function closeAddCardPopup() {
   addCardPopup.classList.remove('popup_opened');
   document.removeEventListener('keydown', handleEscCloseForAdd);
+  addCardForm.reset();
+  // Aquí puedes resetear validación si quieres (opcional)
 }
 
 addCardPopup.addEventListener('mousedown', (evt) => {
@@ -178,4 +180,15 @@ imagePopup.addEventListener('mousedown', (evt) => {
   if (evt.target === imagePopup) {
     closeImagePopup();
   }
+});
+
+// Aquí llamamos a la validación con la configuración
+
+enableValidation({
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__save-button",
+  inactiveButtonClass: "popup__save-button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible"
 });
