@@ -80,7 +80,7 @@ class Api {
 export const api = new Api({
   baseUrl: 'https://around-api.es.tripleten-services.com/v1',
   headers: {
-    authorization: 'Bearer 6f2d410c-e0cd-4788-883b-32bfa4f6716f',
+    authorization: '6f2d410c-e0cd-4788-883b-32bfa4f6716f',
     'Content-Type': 'application/json'
   }
 });
