@@ -1,14 +1,17 @@
 // ./scripts/Card.js
 
 export default class Card {
-  constructor(data, templateSelector, handleCardClick) {
-    this._name = data.name;       // nombre/título de la tarjeta
-    this._link = data.link;       // URL de la imagen
+  constructor(data, templateSelector, handleCardClick, handleDeleteClick, handleLikeClick) {
+    this._name = data.name;
+    this._link = data.link;
+    this._id = data._id;               // ID de la tarjeta (para API)
+    this._isLiked = data.isLiked || false; // estado inicial del like
     this._templateSelector = templateSelector;
-    this._handleCardClick = handleCardClick; // función que abre el popup
+    this._handleCardClick = handleCardClick;
+    this._handleDeleteClick = handleDeleteClick;
+    this._handleLikeClick = handleLikeClick;
   }
 
-  // Clonar el template de la tarjeta
   _getTemplate() {
     const cardElement = document
       .querySelector(this._templateSelector)
@@ -18,7 +21,6 @@ export default class Card {
     return cardElement;
   }
 
-  // Generar la tarjeta completa
   generateCard() {
     this._element = this._getTemplate();
     this._image = this._element.querySelector('.main__image');
@@ -26,33 +28,59 @@ export default class Card {
     this._title = this._element.querySelector('.main__title');
     this._likeBtn = this._element.querySelector('.main__like-button');
 
-
-    // Asignar datos
     this._image.src = this._link;
     this._image.alt = this._name;
     this._title.textContent = this._name;
+
+    // Estado inicial del like
+    if (this._isLiked) {
+      this._likeBtn.classList.add('main__like-button_active');
+    }
 
     this._setEventListeners();
     return this._element;
   }
 
-  // Configurar los eventos de la tarjeta
   _setEventListeners() {
     // Abrir popup al hacer clic en la imagen
     this._image.addEventListener('click', () => {
-      console.log('Click en imagen:', this._link, this._name); // debug
       this._handleCardClick(this._link, this._name);
     });
 
     // Eliminar tarjeta
     this._deleteBtn.addEventListener('click', () => {
-      this._element.remove();
-      this._element = null; // opcional, libera memoria
+      if (this._handleDeleteClick) {
+        this._handleDeleteClick(this);
+      }
     });
 
     // Like
-  this._likeBtn.addEventListener('click', () => {
-    this._likeBtn.classList.toggle('main__like-button_active');
-  });
+    this._likeBtn.addEventListener('click', () => {
+      if (this._handleLikeClick) {
+        this._handleLikeClick(this);
+      }
+    });
+  }
+
+  // Actualizar el estado del like desde la API
+  updateLikes(updatedCard) {
+    this._isLiked = updatedCard.isLiked;
+    if (this._isLiked) {
+      this._likeBtn.classList.add('main__like-button_active');
+    } else {
+      this._likeBtn.classList.remove('main__like-button_active');
+    }
+  }
+
+  // Saber si está likeado
+  isLiked() {
+    return this._isLiked;
+  }
+
+  // Remover tarjeta del DOM
+  removeCard() {
+    this._element.remove();
+    this._element = null;
   }
 }
+
