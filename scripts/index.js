@@ -108,19 +108,23 @@ const addCardPopupForm = new PopupWithForm(addCardPopupSelector, (formData) => {
   addCardPopupForm.renderLoading(true, 'Creando...', 'Crear');
   api.addCard({ name: formData.title, link: formData.link })
     .then(newCardData => {
-      const card = new Card(
-        newCardData,
-        '#card-template',
-        handleCardClick,
-        handleCardDelete,
-        handleCardLike
-      );
-      cardsSection.addItem(card.generateCard());
+      // Usamos addItemToArray para mantener _items actualizado
+      cardsSection.addItemToArray(newCardData, (cardData) => {
+        const card = new Card(
+          cardData,
+          '#card-template',
+          handleCardClick,
+          handleCardDelete,
+          handleCardLike
+        );
+        return card.generateCard();
+      });
       addCardPopupForm.close();
     })
     .catch(err => console.log(err))
     .finally(() => addCardPopupForm.renderLoading(false));
 });
+
 
 // ---------------- EVENT LISTENERS ----------------
 openProfileBtn.addEventListener('click', () => {
