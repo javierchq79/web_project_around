@@ -23,4 +23,13 @@ export default class Section {
   clear() {
     this._container.innerHTML = "";
   }
+
+  // Método que asigna items desde fuera y los renderiza
+  setItems(itemsArray) {
+    this._items = itemsArray;
+    this.renderItems();
+  }
+
+
 }
+

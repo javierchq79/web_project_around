@@ -61,32 +61,29 @@ function handleCardLike(cardInstance) {
 }
 
 // ---------------- SECCIÓN DE CARDS ----------------
-const cardsSection = new Section({
-  items: [],
-  renderer: (cardData) => {
-    const card = new Card(
-      cardData,
-      '#card-template',
-      handleCardClick,
-      handleCardDelete,
-      handleCardLike
-    );
-    cardsSection.addItem(card.generateCard());
-  }
-}, '.main__gallery-list');
+const cardsSection = new Section(
+  {
+    items: [], // empezamos vacío
+    renderer: (cardData) => {
+      const card = new Card(
+        cardData,
+        '#card-template',
+        handleCardClick,
+        handleCardDelete,
+        handleCardLike
+      );
+      cardsSection.addItem(card.generateCard());
+    }
+  },
+  '.main__gallery-list'
+);
 
-// ---------------- CARGA INICIAL ----------------
-Promise.all([api.getUserInfo(), api.getInitialCards()])
-  .then(([userData, cards]) => {
-    console.log('Cards from API:', cards);
-    userInfo.setUserInfo({
-      name: userData.name,
-      description: userData.about,
-      avatar: userData.avatar
-    });
-
-    cardsSection.items = cards;
-    cardsSection.renderItems();
+// ---------------- CARGA INICIAL DESDE API ----------------
+api.getInitialCards()
+  .then(cards => {
+    console.log("Cards from API:", cards); // opcional, para debug
+    // Usamos método público para setear items y renderizarlos
+    cardsSection.setItems(cards);
   })
   .catch(err => console.log(err));
 
