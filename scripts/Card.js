@@ -21,25 +21,26 @@ export default class Card {
     return cardElement;
   }
 
-  generateCard() {
-    this._element = this._getTemplate();
-    this._image = this._element.querySelector('.main__image');
-    this._deleteBtn = this._element.querySelector('.main__delete-button');
-    this._title = this._element.querySelector('.main__title');
-    this._likeBtn = this._element.querySelector('.main__like-button');
+ generateCard() {
+  this._element = this._getTemplate();
+  this._element.dataset.id = this._id; // <- clave para que Section pueda identificar la tarjeta
+  this._image = this._element.querySelector('.main__image');
+  this._deleteBtn = this._element.querySelector('.main__delete-button');
+  this._title = this._element.querySelector('.main__title');
+  this._likeBtn = this._element.querySelector('.main__like-button');
 
-    this._image.src = this._link;
-    this._image.alt = this._name;
-    this._title.textContent = this._name;
+  this._image.src = this._link;
+  this._image.alt = this._name;
+  this._title.textContent = this._name;
 
-    // Estado inicial del like
-    if (this._isLiked) {
-      this._likeBtn.classList.add('main__like-button_active');
-    }
-
-    this._setEventListeners();
-    return this._element;
+  if (this._isLiked) {
+    this._likeBtn.classList.add('main__like-button_active');
   }
+
+  this._setEventListeners();
+  return this._element;
+}
+
 
   _setEventListeners() {
     // Abrir popup al hacer clic en la imagen

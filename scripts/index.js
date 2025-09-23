@@ -45,8 +45,7 @@ function handleCardDelete(cardInstance) {
     deletePopupInstance.renderLoading(true, 'Eliminando...', 'Sí');
     api.deleteCard(cardInstance._id)
       .then(() => {
-        // Quita del DOM y del array
-        cardInstance.removeCard();
+        // elimina del DOM y del array _items
         cardsSection.removeItemById(cardInstance._id);
         deletePopupInstance.close();
       })
@@ -54,7 +53,6 @@ function handleCardDelete(cardInstance) {
       .finally(() => deletePopupInstance.renderLoading(false));
   });
 }
-
 
 function handleCardLike(cardInstance) {
   const likeAction = cardInstance.isLiked() ? api.unlikeCard(cardInstance._id) : api.likeCard(cardInstance._id);
@@ -66,7 +64,7 @@ function handleCardLike(cardInstance) {
 // ---------------- SECCIÓN DE CARDS ----------------
 const cardsSection = new Section(
   {
-    items: [], // empezamos vacío
+    items: [],
     renderer: (cardData) => {
       const card = new Card(
         cardData,
@@ -75,7 +73,7 @@ const cardsSection = new Section(
         handleCardDelete,
         handleCardLike
       );
-      cardsSection.addItem(card.generateCard());
+      cardsSection.addItem(card.generateCard()); // agrega al DOM
     }
   },
   '.main__gallery-list'
@@ -90,11 +88,10 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       avatar: userData.avatar
     });
 
-    // Renderizar las tarjetas desde API
+    // Agrega las tarjetas al array _items y las renderiza
     cardsSection.setItems(cards);
   })
   .catch(err => console.log(err));
-
 
 // ---------------- POPUP PERFIL ----------------
 const profilePopupForm = new PopupWithForm(profilePopupSelector, (formData) => {
@@ -117,25 +114,13 @@ const addCardPopupForm = new PopupWithForm(addCardPopupSelector, (formData) => {
   addCardPopupForm.renderLoading(true, 'Creando...', 'Crear');
   api.addCard({ name: formData.title, link: formData.link })
     .then(newCardData => {
-      // Usamos addItemToArray para mantener _items actualizado
-      cardsSection.addItemToArray(newCardData, (cardData) => {
-        const card = new Card(
-          cardData,
-          '#card-template',
-          handleCardClick,
-          handleCardDelete,
-          handleCardLike
-        );
-        return card.generateCard();
-      });
+      // Usamos el método de Section para agregar la tarjeta al array y al DOM
+      cardsSection.addItemToSection(newCardData);
       addCardPopupForm.close();
     })
     .catch(err => console.log(err))
     .finally(() => addCardPopupForm.renderLoading(false));
 });
-
-
-
 
 // ---------------- EVENT LISTENERS ----------------
 openProfileBtn.addEventListener('click', () => {
