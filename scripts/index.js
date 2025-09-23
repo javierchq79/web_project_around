@@ -45,7 +45,6 @@ function handleCardDelete(cardInstance) {
     deletePopupInstance.renderLoading(true, 'Eliminando...', 'Sí');
     api.deleteCard(cardInstance._id)
       .then(() => {
-        // elimina del DOM y del array _items
         cardsSection.removeItemById(cardInstance._id);
         deletePopupInstance.close();
       })
@@ -73,7 +72,7 @@ const cardsSection = new Section(
         handleCardDelete,
         handleCardLike
       );
-      cardsSection.addItem(card.generateCard()); // agrega al DOM
+      return card.generateCard(); // ✅ devuelve el elemento
     }
   },
   '.main__gallery-list'
@@ -88,7 +87,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       avatar: userData.avatar
     });
 
-    // Agrega las tarjetas al array _items y las renderiza
+    // Renderiza las tarjetas iniciales
     cardsSection.setItems(cards);
   })
   .catch(err => console.log(err));
@@ -114,8 +113,7 @@ const addCardPopupForm = new PopupWithForm(addCardPopupSelector, (formData) => {
   addCardPopupForm.renderLoading(true, 'Creando...', 'Crear');
   api.addCard({ name: formData.title, link: formData.link })
     .then(newCardData => {
-      // Usamos el método de Section para agregar la tarjeta al array y al DOM
-      cardsSection.addItemToSection(newCardData);
+      cardsSection.addItemToSection(newCardData); // ✅ agrega al DOM y al array
       addCardPopupForm.close();
     })
     .catch(err => console.log(err))
