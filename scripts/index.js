@@ -45,13 +45,16 @@ function handleCardDelete(cardInstance) {
     deletePopupInstance.renderLoading(true, 'Eliminando...', 'Sí');
     api.deleteCard(cardInstance._id)
       .then(() => {
+        // Quita del DOM y del array
         cardInstance.removeCard();
+        cardsSection.removeItemById(cardInstance._id);
         deletePopupInstance.close();
       })
       .catch(err => console.log(err))
       .finally(() => deletePopupInstance.renderLoading(false));
   });
 }
+
 
 function handleCardLike(cardInstance) {
   const likeAction = cardInstance.isLiked() ? api.unlikeCard(cardInstance._id) : api.likeCard(cardInstance._id);
@@ -79,13 +82,19 @@ const cardsSection = new Section(
 );
 
 // ---------------- CARGA INICIAL DESDE API ----------------
-api.getInitialCards()
-  .then(cards => {
-    console.log("Cards from API:", cards); // opcional, para debug
-    // Usamos método público para setear items y renderizarlos
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cards]) => {
+    userInfo.setUserInfo({
+      name: userData.name,
+      description: userData.about,
+      avatar: userData.avatar
+    });
+
+    // Renderizar las tarjetas desde API
     cardsSection.setItems(cards);
   })
   .catch(err => console.log(err));
+
 
 // ---------------- POPUP PERFIL ----------------
 const profilePopupForm = new PopupWithForm(profilePopupSelector, (formData) => {
@@ -124,6 +133,8 @@ const addCardPopupForm = new PopupWithForm(addCardPopupSelector, (formData) => {
     .catch(err => console.log(err))
     .finally(() => addCardPopupForm.renderLoading(false));
 });
+
+
 
 
 // ---------------- EVENT LISTENERS ----------------
