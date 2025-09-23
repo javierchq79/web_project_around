@@ -85,6 +85,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       description: userData.about,
       avatar: userData.avatar
     });
+
     cardsSection.setItems(cards);
   })
   .catch(err => console.log(err));
