@@ -75,11 +75,12 @@ const cardsSection = new Section(
         handleCardDelete,
         handleCardLike
       );
-      cardsSection.addItem(card.generateCard());
+      return card.generateCard(); // ✅ sólo devuelve el elemento
     }
   },
   '.main__gallery-list'
 );
+
 
 // ---------------- CARGA INICIAL DESDE API ----------------
 Promise.all([api.getUserInfo(), api.getInitialCards()])
