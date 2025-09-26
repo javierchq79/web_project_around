@@ -100,3 +100,52 @@
   color: #888;
   cursor: not-allowed;
 }
+
+/* === Avatar y botón de editar === */
+/* Contenedor del avatar */
+.main__avatar {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 50%; /* foto redonda */
+}
+
+/* Imagen del avatar */
+.main__avatar-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: filter 0.3s ease; /* transición suave */
+  border-radius: 50%;
+}
+
+/* Efecto al pasar sobre el avatar */
+.main__avatar:hover .main__avatar-image {
+  filter: brightness(60%); /* oscurece la foto */
+}
+
+/* Botón del lápiz centrado */
+.main__avatar-edit-button {
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  width: 36px;
+  height: 36px;
+  background: url('images/Colebemis-Feather-Edit-3-white.svg') no-repeat center center; /* SVG blanco */
+  background-size: 60%;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  cursor: pointer;
+  background-color: transparent;
+  padding: 0;
+}
+
+/* Aparece con fade y pequeño “zoom” al hacer hover */
+.main__avatar:hover .main__avatar-edit-button {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.1); /* efecto sutil de zoom */
+}
