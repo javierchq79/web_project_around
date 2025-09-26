@@ -32,6 +32,8 @@ class Api {
     .then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`));
   }
 
+  
+
   // Obtener tarjetas iniciales
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, { headers: this._headers })

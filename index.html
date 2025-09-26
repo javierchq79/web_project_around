@@ -114,26 +114,29 @@
 
       <main class="main">
         <!-- Perfil -->
-        <section class="main__profile">
-          <div class="main__avatar">
-            <img
-              src="images/jacques-avatar.jpg"
-              alt="Foto de perfil de Jacques Cousteau"
-            />
-          </div>
+      <section class="main__profile">
+        <div class="main__avatar">
+          <img
+            src="images/jacques-avatar.jpg"
+            alt="Foto de perfil de Jacques Cousteau"
+            class="main__avatar-image"
+          />
+          <button class="main__avatar-edit-button" aria-label="Editar avatar"></button>
+        </div>
 
-          <div class="main__info">
-            <div class="main__name-wrapper">
-              <h1 class="main__name">Jacques Cousteau</h1>
-              <button class="main__edit-button" aria-label="Editar perfil">
-                <img src="images/Colebemis-Feather-Edit-3.svg" alt="" />
-              </button>
-            </div>
-            <p class="main__description">Explorador</p>
+        <div class="main__info">
+          <div class="main__name-wrapper">
+            <h1 class="main__name">Jacques Cousteau</h1>
+            <button class="main__edit-button" aria-label="Editar perfil">
+              <img src="images/Colebemis-Feather-Edit-3.svg" alt="" />
+            </button>
           </div>
+          <p class="main__description">Explorador</p>
+        </div>
 
-          <button class="main__add-button" aria-label="Añadir">+</button>
-        </section>
+        <button class="main__add-button" aria-label="Añadir">+</button>
+      </section>
+
 
         <!-- Galería -->
         <section class="main__gallery">
@@ -174,6 +177,25 @@
     <button class="popup__close-button" type="button">&times;</button>
     <h3 class="popup__title">¿Estás seguro que quieres eliminar esta tarjeta?</h3>
     <button class="popup__save-button popup__confirm-button" type="button">Sí, eliminar</button>
+  </div>
+</div>
+
+<!-- POPUP: Cambiar avatar -->
+<div class="popup popup_type_edit-avatar">
+  <div class="popup__container">
+    <button class="popup__close-button" type="button">&times;</button>
+    <h3 class="popup__title">Cambiar foto de perfil</h3>
+    <form class="popup__form" name="edit-avatar" novalidate>
+      <input
+        type="url"
+        name="avatar"
+        class="popup__input popup__input_type_avatar"
+        placeholder="Enlace a la nueva foto"
+        required
+      />
+      <span class="popup__error" id="avatar-error"></span>
+      <button type="submit" class="popup__save-button">Guardar</button>
+    </form>
   </div>
 </div>
 
