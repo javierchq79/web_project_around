@@ -33,7 +33,6 @@ const userInfo = new UserInfo({
 // ---------------- POPUPS ----------------
 const imagePopupInstance = new PopupWithImage(imagePopupSelector);
 const deletePopupInstance = new PopupWithConfirmation(deletePopupSelector);
-deletePopupInstance.setEventListeners();
 
 // ---------------- FUNCIONES ----------------
 function handleCardClick(link, name) {
@@ -41,7 +40,8 @@ function handleCardClick(link, name) {
 }
 
 function handleCardDelete(cardInstance) {
-  deletePopupInstance.open(() => {
+  deletePopupInstance.open();
+  deletePopupInstance.setSubmitAction(() => {
     deletePopupInstance.renderLoading(true, 'Eliminando...', 'Sí');
     api.deleteCard(cardInstance._id)
       .then(() => {
@@ -54,7 +54,10 @@ function handleCardDelete(cardInstance) {
 }
 
 function handleCardLike(cardInstance) {
-  const likeAction = cardInstance.isLiked() ? api.unlikeCard(cardInstance._id) : api.likeCard(cardInstance._id);
+  const likeAction = cardInstance.isLiked()
+    ? api.unlikeCard(cardInstance._id)
+    : api.likeCard(cardInstance._id);
+
   likeAction
     .then(updatedCard => cardInstance.updateLikes(updatedCard))
     .catch(err => console.log(err));
@@ -65,13 +68,14 @@ const cardsSection = new Section(
   {
     items: [],
     renderer: (cardData) => {
-      return new Card(
+      const card = new Card(
         cardData,
         '#card-template',
         handleCardClick,
         handleCardDelete,
         handleCardLike
       );
+      cardsSection.addItem(card.generateCard());
     }
   },
   '.main__gallery-list'
@@ -111,14 +115,7 @@ const addCardPopupForm = new PopupWithForm(addCardPopupSelector, (formData) => {
   addCardPopupForm.renderLoading(true, 'Creando...', 'Crear');
   api.addCard({ name: formData.title, link: formData.link })
     .then(newCardData => {
-      const newCard = new Card(
-        newCardData,
-        '#card-template',
-        handleCardClick,
-        handleCardDelete,
-        handleCardLike
-      );
-      cardsSection.addItemToSection(newCard, newCardData);
+      cardsSection.addItemToSection(newCardData);
       addCardPopupForm.close();
     })
     .catch(err => console.log(err))

@@ -1,43 +1,43 @@
 // ./scripts/Popup.js
-
 export default class Popup {
   constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
     this._handleEscClose = this._handleEscClose.bind(this);
   }
 
-  // Método privado para manejar cierre con Esc
-  _handleEscClose(event) {
-    if (event.key === 'Escape') {
-      this.close();
-    }
-  }
-
-  // Método público para abrir el popup
   open() {
     this._popup.classList.add('popup_opened');
     document.addEventListener('keydown', this._handleEscClose);
   }
 
-  // Método público para cerrar el popup
   close() {
     this._popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', this._handleEscClose);
   }
 
-  // Método público para agregar listeners
+  _handleEscClose(evt) {
+    if (evt.key === 'Escape') {
+      this.close();
+    }
+  }
+
   setEventListeners() {
-    // Cierre al hacer clic en overlay
     this._popup.addEventListener('mousedown', (evt) => {
-      if (evt.target === this._popup) {
+      if (
+        evt.target.classList.contains('popup_opened') ||
+        evt.target.classList.contains('popup__close')
+      ) {
         this.close();
       }
     });
+  }
 
-    // Cierre al hacer clic en botón de cerrar
-    const closeButton = this._popup.querySelector('.popup__close');
-    if (closeButton) {
-      closeButton.addEventListener('click', () => this.close());
-    }
+  // 🔹 Método genérico de loading para TODOS los popups
+  renderLoading(isLoading, loadingText = 'Guardando...', defaultText = 'Guardar') {
+    const saveButton = this._popup.querySelector('.popup__save-button');
+    if (!saveButton) return; // algunos popups no tienen botón de guardar
+    saveButton.textContent = isLoading ? loadingText : defaultText;
+    saveButton.disabled = isLoading;
+    saveButton.classList.toggle('popup__save-button_disabled', isLoading);
   }
 }
