@@ -7,14 +7,15 @@ export default class PopupWithConfirmation extends Popup {
     this._confirmButton = this._popup.querySelector('.popup__save-button');
   }
 
-  setSubmitAction(action) {
-    this._handleSubmit = action;
+  open(handleConfirm) {
+    this._handleConfirm = handleConfirm;
+    super.open();
   }
 
   setEventListeners() {
     super.setEventListeners();
     this._confirmButton.addEventListener('click', () => {
-      if (this._handleSubmit) this._handleSubmit();
+      if (this._handleConfirm) this._handleConfirm();
     });
   }
 }

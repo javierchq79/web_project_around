@@ -33,6 +33,7 @@ const userInfo = new UserInfo({
 // ---------------- POPUPS ----------------
 const imagePopupInstance = new PopupWithImage(imagePopupSelector);
 const deletePopupInstance = new PopupWithConfirmation(deletePopupSelector);
+deletePopupInstance.setEventListeners();
 
 // ---------------- FUNCIONES ----------------
 function handleCardClick(link, name) {
@@ -40,8 +41,7 @@ function handleCardClick(link, name) {
 }
 
 function handleCardDelete(cardInstance) {
-  deletePopupInstance.open();
-  deletePopupInstance.setSubmitAction(() => {
+  deletePopupInstance.open(() => {
     deletePopupInstance.renderLoading(true, 'Eliminando...', 'Sí');
     api.deleteCard(cardInstance._id)
       .then(() => {
@@ -54,10 +54,7 @@ function handleCardDelete(cardInstance) {
 }
 
 function handleCardLike(cardInstance) {
-  const likeAction = cardInstance.isLiked()
-    ? api.unlikeCard(cardInstance._id)
-    : api.likeCard(cardInstance._id);
-
+  const likeAction = cardInstance.isLiked() ? api.unlikeCard(cardInstance._id) : api.likeCard(cardInstance._id);
   likeAction
     .then(updatedCard => cardInstance.updateLikes(updatedCard))
     .catch(err => console.log(err));
@@ -75,12 +72,11 @@ const cardsSection = new Section(
         handleCardDelete,
         handleCardLike
       );
-      return card.generateCard(); // ✅ sólo devuelve el elemento
+      return card.generateCard(); // retorna el elemento
     }
   },
   '.main__gallery-list'
 );
-
 
 // ---------------- CARGA INICIAL DESDE API ----------------
 Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -90,8 +86,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       description: userData.about,
       avatar: userData.avatar
     });
-
-    cardsSection.setItems(cards);
+    cardsSection.setItems(cards); // renderiza todas las tarjetas
   })
   .catch(err => console.log(err));
 
@@ -116,7 +111,7 @@ const addCardPopupForm = new PopupWithForm(addCardPopupSelector, (formData) => {
   addCardPopupForm.renderLoading(true, 'Creando...', 'Crear');
   api.addCard({ name: formData.title, link: formData.link })
     .then(newCardData => {
-      cardsSection.addItemToSection(newCardData);
+      cardsSection.addItemToSection(newCardData); // agrega al array y al DOM
       addCardPopupForm.close();
     })
     .catch(err => console.log(err))

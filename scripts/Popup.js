@@ -16,28 +16,24 @@ export default class Popup {
   }
 
   _handleEscClose(evt) {
-    if (evt.key === 'Escape') {
-      this.close();
-    }
+    if (evt.key === 'Escape') this.close();
   }
 
   setEventListeners() {
     this._popup.addEventListener('mousedown', (evt) => {
-      if (
-        evt.target.classList.contains('popup_opened') ||
-        evt.target.classList.contains('popup__close')
-      ) {
+      if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close')) {
         this.close();
       }
     });
   }
 
-  // 🔹 Método genérico de loading para TODOS los popups
+  // Método genérico para mostrar "cargando" en botones
   renderLoading(isLoading, loadingText = 'Guardando...', defaultText = 'Guardar') {
     const saveButton = this._popup.querySelector('.popup__save-button');
-    if (!saveButton) return; // algunos popups no tienen botón de guardar
+    if (!saveButton) return;
     saveButton.textContent = isLoading ? loadingText : defaultText;
     saveButton.disabled = isLoading;
-    saveButton.classList.toggle('popup__save-button_disabled', isLoading);
+    if (isLoading) saveButton.classList.add('popup__save-button_disabled');
+    else saveButton.classList.remove('popup__save-button_disabled');
   }
 }
