@@ -1,4 +1,4 @@
-// ---------------- IMPORTS ----------------
+// ===================== IMPORTS =====================
 import Card from './Card.js';
 import { FormValidator } from './FormValidator.js';
 import Section from './Section.js';
@@ -9,7 +9,7 @@ import UserInfo from './UserInfo.js';
 import { validationConfig } from './utils.js';
 import { api } from './Api.js';
 
-// ---------------- ELEMENTOS DEL DOM ----------------
+// ===================== ELEMENTOS DEL DOM =====================
 const profilePopupSelector = '.popup_type_edit-profile';
 const profileForm = document.querySelector(`${profilePopupSelector} .popup__form`);
 const nameInput = profileForm.querySelector('.popup__input_type_name');
@@ -27,19 +27,18 @@ const avatarPopupSelector = '.popup_type_edit-avatar';
 const avatarForm = document.querySelector(`${avatarPopupSelector} .popup__form`);
 const avatarEditButton = document.querySelector('.main__avatar-edit-button');
 
-// ---------------- USER INFO ----------------
+// ===================== USER INFO =====================
 const userInfo = new UserInfo({
   nameSelector: '.main__name',
   descriptionSelector: '.main__description',
   avatarSelector: '.main__avatar'
 });
 
-// ---------------- POPUPS ----------------
+// ===================== POPUPS =====================
 const imagePopup = new PopupWithImage(imagePopupSelector);
 const deletePopup = new PopupWithConfirmation(deletePopupSelector);
-deletePopup.setEventListeners();
 
-// ---------------- FUNCIONES ----------------
+// ===================== FUNCIONES =====================
 function handleCardClick(link, name) {
   imagePopup.open(link, name);
 }
@@ -67,7 +66,7 @@ function handleCardLike(cardInstance) {
     .catch(err => console.log(err));
 }
 
-// ---------------- SECCIÓN DE CARDS ----------------
+// ===================== SECCIÓN DE CARDS =====================
 const cardsSection = new Section(
   {
     items: [],
@@ -85,7 +84,7 @@ const cardsSection = new Section(
   '.main__gallery-list'
 );
 
-// ---------------- CARGA INICIAL DESDE API ----------------
+// ===================== CARGA INICIAL DESDE API =====================
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cards]) => {
     userInfo.setUserInfo({
@@ -97,7 +96,9 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   })
   .catch(err => console.log(err));
 
-// ---------------- POPUPS CON FORMULARIO ----------------
+// ===================== POPUPS CON FORMULARIO =====================
+
+// --- PERFIL ---
 const profilePopupForm = new PopupWithForm(profilePopupSelector, (formData) => {
   profilePopupForm.renderLoading(true, 'Guardando...', 'Guardar');
   api.setUserInfo({ name: formData.name, about: formData.about })
@@ -113,6 +114,7 @@ const profilePopupForm = new PopupWithForm(profilePopupSelector, (formData) => {
     .finally(() => profilePopupForm.renderLoading(false));
 });
 
+// --- NUEVA CARD ---
 const addCardPopupForm = new PopupWithForm(addCardPopupSelector, (formData) => {
   addCardPopupForm.renderLoading(true, 'Creando...', 'Crear');
   api.addCard({ name: formData.title, link: formData.link })
@@ -124,6 +126,7 @@ const addCardPopupForm = new PopupWithForm(addCardPopupSelector, (formData) => {
     .finally(() => addCardPopupForm.renderLoading(false));
 });
 
+// --- AVATAR ---
 const avatarPopupForm = new PopupWithForm(avatarPopupSelector, (formData) => {
   avatarPopupForm.renderLoading(true, 'Guardando...', 'Guardar');
   api.updateAvatar(formData.avatar)
@@ -139,7 +142,9 @@ const avatarPopupForm = new PopupWithForm(avatarPopupSelector, (formData) => {
     .finally(() => avatarPopupForm.renderLoading(false));
 });
 
-// ---------------- EVENT LISTENERS ----------------
+// ===================== EVENT LISTENERS =====================
+
+// --- Botones de abrir popups ---
 openProfileBtn.addEventListener('click', () => {
   const currentUser = userInfo.getUserInfo();
   nameInput.value = currentUser.name;
@@ -157,7 +162,7 @@ avatarEditButton.addEventListener('click', () => {
   avatarPopupForm.open();
 });
 
-// ---------------- VALIDACIÓN ----------------
+// --- Validación ---
 const profileValidator = new FormValidator(validationConfig, profileForm);
 const addCardValidator = new FormValidator(validationConfig, addCardForm);
 const avatarValidator = new FormValidator(validationConfig, avatarForm);
@@ -166,7 +171,7 @@ profileValidator.enableValidation();
 addCardValidator.enableValidation();
 avatarValidator.enableValidation();
 
-// ---------------- EVENTOS DE CIERRE ----------------
+// --- Eventos de cierre ---
 profilePopupForm.setEventListeners();
 addCardPopupForm.setEventListeners();
 avatarPopupForm.setEventListeners();
